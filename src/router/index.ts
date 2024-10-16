@@ -3,8 +3,8 @@ import LoginPage from '@/views/LoginPage.vue'
 import HomeView from '@/views/HomeView.vue'
 
 const routes = [
-  { path: '/', name: 'Login', component: LoginPage },
-  { path: '/home', name: 'Home', component: HomeView }
+  { path: '/login', name: 'Login', component: LoginPage },
+  { path: '/', name: 'Home', component: HomeView }
 ]
 
 const router = createRouter({

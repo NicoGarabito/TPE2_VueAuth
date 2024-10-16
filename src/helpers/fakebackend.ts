@@ -1,6 +1,6 @@
 export { fakeBackend };
 
-import type { User              } from '@/models/User';
+import type { User              } from '@/models/UserModel';
 import type { JwtPayload        } from '@/models/JwtModel';
 import type { AuthRequestBody   } from '@/models/AuthReqModel';
 
@@ -14,7 +14,7 @@ const user: User = {
     id: 1, 
     firstName: 'Nicolás', 
     lastName: 'Garabito', 
-    user: 'ngarabito', 
+    username: 'test', 
     password: 'test',
     isAdmin: true, 
     refreshTokens: [] 
@@ -41,6 +41,7 @@ function fakeBackend() {
                 const { method } = opts;
                 switch (true) {
                     case url.toString().endsWith('/users/authenticate') && method === 'POST':
+                        console.log('authenticando');
                         return authenticate();
                     case url.toString().endsWith('/users/refresh-token') && method === 'POST':
                         return refreshTokens();
@@ -60,9 +61,13 @@ function fakeBackend() {
 
             function authenticate() {
                 const { username, password } = body<AuthRequestBody>();
-                const user = users.find(x => x.user === username && x.password === password);
-
+                const user = users.find(x => x.username == username && x.password == password);       
+                console.log(body<AuthRequestBody>());
+                console.log(user?.username);
+                console.log(user?.password);
                 if (!user) return error('Usuario o contraseña incorrectos');
+
+                
 
                 // Agregar refresh token al usuario
                 user.refreshTokens.push(generaterefreshTokens());
@@ -70,7 +75,7 @@ function fakeBackend() {
 
                 return ok({
                     id: user.id,
-                    username: user.user,
+                    username: user.username,
                     firstName: user.firstName,
                     lastName: user.lastName,
                     isAdmin: user.isAdmin,
@@ -92,7 +97,7 @@ function fakeBackend() {
 
                 return ok({
                     id: user.id,
-                    username: user.user,
+                    username: user.username,
                     firstName: user.firstName,
                     lastName: user.lastName,
                     isAdmin: user.isAdmin,

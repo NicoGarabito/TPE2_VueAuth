@@ -2,7 +2,7 @@ export interface User {
   id: number;
   firstName: string;
   lastName: string;
-  user: string;
+  username: string;
   password: string;
   remember?: boolean;
   isAdmin: boolean;

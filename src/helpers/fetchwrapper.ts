@@ -6,6 +6,24 @@ export const fetchWrapper = {
     put: Request('PUT'),
     delete: Request('DELETE'),
 };
+/*
+function Request(method: string) {
+    return (url: string, body?: any, options: { credentials?: RequestCredentials } = {}) => {
+        // Fusionar las opciones con las predeterminadas
+        const RequestOptions: RequestInit = {
+            method,
+            headers: {
+                ...authHeader(url), // Agregar los encabezados de autenticación
+                'Content-Type': body ? 'application/json' : '', // Agregar el tipo de contenido solo si hay un body
+            },
+            body: body ? JSON.stringify(body) : undefined, // Si hay un body, lo convertimos en JSON
+            ...options // Fusionar cualquier otra opción (como credentials)
+        };
+
+        // Hacemos la solicitud con fetch
+        return fetch(url, RequestOptions).then(handleResponse);
+    }
+}*/
 
 function Request(method: string) {
     return (url : string, body?: any, {credentials} : { credentials?: RequestCredentials } = {}) => {
